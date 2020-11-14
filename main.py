@@ -1,13 +1,14 @@
-#!/usr/bin/python3.4
-# Setup Python ----------------------------------------------- #
 import pygame, sys, random
+import datetime
  
 # Setup pygame/window ---------------------------------------- #
 mainClock = pygame.time.Clock()
 from pygame.locals import *
+from classes import Particle
 pygame.init()
+WIDTH = HEIGHT = 800
 pygame.display.set_caption('game base')
-screen = pygame.display.set_mode((500, 500),0,32)
+screen = pygame.display.set_mode((WIDTH, HEIGHT),0,32)
  
 # a particle is...
 # a thing that exists at a location
@@ -17,23 +18,30 @@ screen = pygame.display.set_mode((500, 500),0,32)
  
 # [loc, velocity, timer]
 particles = []
+    
+year = datetime.datetime.now().year
+hour = datetime.datetime.now().hour
  
 # Loop ------------------------------------------------------- #
 while True:
-    
     # Background --------------------------------------------- #
-    screen.fill((0,0,0))
-    mx, my = pygame.mouse.get_pos()
-    particles.append([[mx, my], [random.randint(0, 20) / 10 - 1, -2], random.randint(4, 6)])
- 
-    for particle in particles:
-        particle[0][0] += particle[1][0]
-        particle[0][1] += particle[1][1]
-        particle[2] -= 0.1
-        particle[1][1] += 0.1
-        pygame.draw.circle(screen, (255, 255, 255), [int(particle[0][0]), int(particle[0][1])], int(particle[2]))
-        if particle[2] <= 0:
-            particles.remove(particle)
+    screen.fill((0,0,128 - ((datetime.datetime.now().hour-5)%24)*5))
+
+    if datetime.datetime.now().year != year:
+        
+        particles.append(Particle([WIDTH / 2,HEIGHT / 2], [random.randint(-10,10) / 100, 2], random.randint(4, 6)))
+        rem = []
+        for particle in particles:
+            particle.position_x += particle.speed_x
+            particle.position_y += particle.speed_y
+            particle.ttl -= 0.1
+            particle.speed_x += particle.speed_x /10
+            pygame.draw.circle(screen, (255, 255, 255), [particle.position_x, particle.position_y], particle.ttl)
+            if particle.ttl <= 0:
+                rem.append(particles.index(particle))
+            
+        for to_rem in rem:
+            particles.pop(to_rem)
     
     # Buttons ------------------------------------------------ #
     for event in pygame.event.get():
