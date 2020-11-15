@@ -5,6 +5,7 @@ import datetime
 mainClock = pygame.time.Clock()
 from pygame.locals import *
 from classes import Particle
+from brightness import get_bright
 pygame.init()
 WIDTH = HEIGHT = 800
 pygame.display.set_caption('game base')
@@ -25,18 +26,19 @@ hour = datetime.datetime.now().hour
 # Loop ------------------------------------------------------- #
 while True:
     # Background --------------------------------------------- #
-    screen.fill((0,0,128 - ((datetime.datetime.now().hour-5)%24)*5))
+    screen.fill((0,0,get_bright(datetime.datetime.now().hour)))
 
-    if datetime.datetime.now().year != year:
+    #if datetime.datetime.now().year != year:
+    if True:
         
-        particles.append(Particle([WIDTH / 2,HEIGHT / 2], [random.randint(-10,10) / 100, 2], random.randint(4, 6)))
+        particles.append(Particle([WIDTH / 2,HEIGHT / 2], [random.randint(-10,10) / 100, random.randint(-10,10) / 100], random.randint(4, 6)))
         rem = []
         for particle in particles:
             particle.position_x += particle.speed_x
             particle.position_y += particle.speed_y
             particle.ttl -= 0.1
             particle.speed_x += particle.speed_x /10
-            pygame.draw.circle(screen, (255, 255, 255), [particle.position_x, particle.position_y], particle.ttl)
+            pygame.draw.circle(screen, (255, 255, 255), [int(particle.position_x), int(particle.position_y)], int(particle.ttl))
             if particle.ttl <= 0:
                 rem.append(particles.index(particle))
             
