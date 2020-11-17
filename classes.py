@@ -25,6 +25,7 @@ class  Firework:
         self.ready_to_blow_up = True
         self.already_died = False
         self.sound = mixer.Sound('FireworkSound.wav')
+        self.sound.set_volume(randint(30,100)/100)
         
         for x,shape in enumerate(self.shapes):
             for y, particle in enumerate(shape):

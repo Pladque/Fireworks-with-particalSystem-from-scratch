@@ -1,4 +1,4 @@
-f = open('fireworkMaker.py', 'r')
+f = open('main.py', 'r')
 f2  = open('temp.txt', 'w')
 
 for line in f.readlines():
