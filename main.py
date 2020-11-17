@@ -15,6 +15,7 @@ WIDTH = HEIGHT = 800
 pygame.display.set_caption('game base')
 screen = pygame.display.set_mode((WIDTH, HEIGHT),0,32)
 
+PLAY_ANYWAY = True  #set to true if you want play it anytime
 PARTICLES_DENSE = 150
 firework_light = 0
 
@@ -64,8 +65,7 @@ while True:
     screen.fill((0,0,get_bright(datetime.datetime.now().hour) + firework_light))
     firework_light -= 0.01
 
-    if datetime.datetime.now().year != year:
-    #if True:     
+    if datetime.datetime.now().year != year or PLAY_ANYWAY:   
         is_alive = 0
         is_alive_2 = 0
         for firework in fireworks:
