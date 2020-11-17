@@ -1,0 +1,19 @@
+from random import randint
+from classes import  Firework
+from fireworksParticlesMaker import *
+from main.py import WIDTH, HEIGHT
+
+def reset_fireworks():
+    fireworks = [
+        Firework([particles,particles2, particles3],[WIDTH / 2 + randint(-50,50) ,HEIGHT / 2 + randint(-50,50)], 0.5, 1),
+        Firework([particles4,particles5, particles6],[WIDTH / 3+ randint(-50,50) ,HEIGHT / 2.7+ randint(-50,50)], 1.5, 3),
+        Firework([particles7,particles8, particles9],[WIDTH / 1.5 + randint(-50,50),HEIGHT / 1.5+ randint(-50,50)], 3, 5),
+        Firework([particles10,particles11, particles12],[WIDTH / 4.3 + randint(-50,50),HEIGHT / 3.1415 + randint(-50,50)], 1.8, 5),
+        Firework([particles13,particles14, particles15, particles16],[WIDTH / 1.2 + randint(-50,50) ,HEIGHT / 5 + randint(-50,50)], 1.68, 2),
+
+        Firework([TWOparticles,TWOparticles2, TWOparticles3],[WIDTH / 1.5 + randint(-50,50) ,HEIGHT / 2.5 + randint(-50,50)], 4, 1),
+        Firework([TWOparticles4,TWOparticles5, TWOparticles6],[WIDTH / 7+ randint(-50,50) ,HEIGHT / 2.7+ randint(-50,50)], 3.2, 3),
+        Firework([TWOparticles7,TWOparticles8, TWOparticles9],[WIDTH / 1.5 + randint(-50,50),HEIGHT / 1.5+ randint(-50,50)], 0.2, 5),
+        Firework([TWOparticles10,TWOparticles11, TWOparticles12],[WIDTH / 2.3 + randint(-50,50),HEIGHT / 3.1415 + randint(-50,50)], 5, 5),
+        Firework([TWOparticles13,TWOparticles14, TWOparticles15, TWOparticles16],[WIDTH / 4 + randint(-50,50) ,HEIGHT / 5 + randint(-50,50)], 3, 2)
+        ]

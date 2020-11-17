@@ -1,31 +1,39 @@
 from random import randint
+from colors import  *
 import pygame
 class Particle:
-    def __init__(self, speed, ttl, size):
+    def __init__(self, speed, ttl, size, color):
         self.speed_x = speed[0]
         self.speed_y = speed[1]
         self.ttl = ttl
         self.size = size
         self.velocity_x = randint(-20,20) / 1000
         self.velocity_y = randint(-20,20) / 1000
+        self.color = color
+
+        self.position_x = 0
+        self.position_y = 0
 
 class  Firework:
 
-    def __init__(self, particles, position, delay = 0):
-        self.shapes = [particles]
+    def __init__(self, particles, position, delay = 0, lightness = 0):
+        self.shapes = particles
         self.delay = delay
         self.position_x = position[0]
         self.position_y = position[1]
+        self.lightness = lightness
+        self.ready_to_blow_up = True
+        self.already_died = False
 
-        for shape in self.shapes:
-                rem = []
-                for particle in shape:
-                    particle.position_x = self.position_x
-                    particle.position_y = self.position_y 
+        for x,shape in enumerate(self.shapes):
+            for y, particle in enumerate(shape):
+                self.shapes[x][y].position_x = self.position_x
+                self.shapes[x][y].position_y = self.position_y 
 
 
     def blowup(self, screen):
         if self.delay <= 0:
+            self.ready_to_blow_up = False
             for shape in self.shapes:
                 rem = []
                 for particle in shape:
@@ -35,10 +43,31 @@ class  Firework:
                     particle.speed_x += particle.velocity_x
                     particle.speed_y += particle.velocity_y
                     particle.ttl -= 0.1
-                    pygame.draw.circle(screen, (255, 255, 255), [int(particle.position_x), int(particle.position_y)], int(particle.size))
+                    particle.size *= abs((100000 -particle.ttl) / 100000)   #making smaler over time
+                    pygame.draw.circle(screen, particle.color, [int(particle.position_x), int(particle.position_y)], int(particle.size))
                     if particle.ttl <= 0:
                         rem.append(particle)
 
                 for to_rem in rem:
                     shape.remove(to_rem)
         else: self.delay -= 0.02
+
+    def get_lightness(self):
+        return self.lightness
+
+    def just_blew_up(self):
+        return self.ready_to_blow_up and self.delay<=0
+
+    def if_died(self):
+        if self.already_died is False:
+            for shape in self.shapes:
+                if shape != []: return False
+            self.already_died = True
+            return True
+        return False
+
+    def is_dead(self):
+        for shape in self.shapes:
+            if shape != []: return False
+        return
+                    
