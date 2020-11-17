@@ -18,7 +18,7 @@ def get_bright(hour):
     elif hour == 8 or hour == 16:
         return 64
     elif hour == 9 or hour == 15:
-        return 82
+        return 90
     elif hour == 10 or hour == 14:
         return 96
     elif hour == 11 or hour == 13:
