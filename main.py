@@ -13,10 +13,10 @@ mainClock = pygame.time.Clock()
 
 # Pygame screen and widnow ------------------------------------#
 WIDTH = HEIGHT = 800
-pygame.display.set_caption('game base')
+pygame.display.set_caption('Fireworks with own particle system!')
 screen = pygame.display.set_mode((WIDTH, HEIGHT),0,32)
 
-PLAY_ANYWAY = True  #set to true if you want play it anytime
+PLAY_ANYWAY = True  #set to true if you want play it now
 PARTICLES_DENSE = 150
 POSSIBLE_POS = [
     [WIDTH / 2 + randint(-100,100) ,HEIGHT / 2 + randint(-100,100)],
@@ -24,14 +24,13 @@ POSSIBLE_POS = [
     [WIDTH / 1.5 + randint(-100,100),HEIGHT / 1.5+ randint(-100,100)], 
     [WIDTH / 4.3 + randint(-100,100),HEIGHT / 3.1415 + randint(-100,100)],
     [WIDTH / 1.2 + randint(-100,100) ,HEIGHT / 5 + randint(-100,100)],
-    [WIDTH / 8 + randint(-100,100) ,HEIGHT / 1.3 + randint(-100,100)],
+    [WIDTH / 7 + randint(-100,100) ,HEIGHT / 6 + randint(-100,100)],
     [WIDTH / 1.5 + randint(-100,100) ,HEIGHT / 2.5 + randint(-100,100)],
     [WIDTH / 7+ randint(-100,100) ,HEIGHT / 2.7+ randint(-100,100)],
     [WIDTH / 1.5 + randint(-100,100),HEIGHT / 1.5+ randint(-100,100)],
     [WIDTH / 2.3 + randint(-100,100),HEIGHT / 3.1415 + randint(-100,100)],
     [WIDTH / 4 + randint(-100,100) ,HEIGHT / 5 + randint(-100,100)],
-    [WIDTH / 7 + randint(-100,100) ,HEIGHT / 1.5 + randint(-100,100)]
-
+    [WIDTH / 7 + randint(-100,100) ,HEIGHT / 1.7 + randint(-100,100)],
     ]
 firework_light = 0
 
@@ -49,7 +48,7 @@ def reset_fireworks():
         Firework([particles4,particles5, particles6],POSSIBLE_POS[randint(0, len(POSSIBLE_POS)-1)], 1.4 + randint(-1,2)/2, 3),
         Firework([particles7,particles8, particles9],POSSIBLE_POS[randint(0, len(POSSIBLE_POS)-1)], 3 + randint(-1,2)/2, 5),
         Firework([particles10,particles11, particles12],POSSIBLE_POS[randint(0, len(POSSIBLE_POS)-1)], 1.8+ randint(-1,2)/2, 5),
-        #Firework([particles13,particles14, particles15, particles16],POSSIBLE_POS[randint(0, len(POSSIBLE_POS)-1)], 1.68+ randint(-1,2)/2, 2),
+        Firework([particles13,particles14, particles15, particles16],POSSIBLE_POS[randint(0, len(POSSIBLE_POS)-1)], 1.68+ randint(-1,2)/2, 2),
         Firework([particles17,particles18, particles19, particles20],POSSIBLE_POS[randint(0, len(POSSIBLE_POS)-1)], 0.3+ randint(-1,2)/2, 3),
 
         Firework([TWOparticles,TWOparticles2, TWOparticles3],POSSIBLE_POS[randint(0, len(POSSIBLE_POS)-1)], 4+ randint(-1,2)/2, 1),
@@ -63,13 +62,13 @@ def reset_fireworks():
 
 def reset_temp_fireworks():
     return [
-        Firework([TEMPparticles,TEMPparticles2, TEMPparticles3],[WIDTH / 4+ randint(-100,100) ,HEIGHT / 1.1+ randint(-100,100)], 0.4+ randint(-1,2)/4, 2),
+        Firework([TEMPparticles,TEMPparticles2, TEMPparticles3],[WIDTH / 4+ randint(-100,100) ,HEIGHT / 9+ randint(-100,100)], 0.4+ randint(-1,2)/4, 2),
         Firework([TEMPparticles4,TEMPparticles5, TEMPparticles6],[WIDTH / 3+ randint(-100,100) ,HEIGHT / 2.7+ randint(-50,50)], 0.01, 3),
-        Firework([TEMPparticles7,TEMPparticles8, TEMPparticles9],[WIDTH / 1.5 + randint(-100,100),HEIGHT / 1.5+ randint(-100,100)], 0.7+ randint(-1,2)/2, 5),
+        Firework([TEMPparticles7,TEMPparticles8, TEMPparticles9],[WIDTH / 1.5 + randint(-100,100),HEIGHT / 1.6+ randint(-100,100)], 0.7+ randint(-1,2)/2, 5),
         
         Firework([TEMPparticles10,TEMPparticles11, TEMPparticles12],[WIDTH / 4.3 + randint(-100,100),HEIGHT / 3.1415 + randint(-100,100)], 1+ randint(-1,2)/2, 5),
         Firework([TEMPparticles13,TEMPparticles14, TEMPparticles15, TEMPparticles16],[WIDTH / 1.2 + randint(-100,100) ,HEIGHT / 5 + randint(-100,100)], 0.1+ randint(-1,2)/10, 2),
-        Firework([TEMPparticles17,TEMPparticles18, TEMPparticles19, TEMPparticles20],[WIDTH / 8 + randint(-100,100) ,HEIGHT / 1.3 + randint(-100,100)], 0.9+ randint(-1,2)/2, 3),
+        Firework([TEMPparticles17,TEMPparticles18, TEMPparticles19, TEMPparticles20],[WIDTH / 8 + randint(-100,100) ,HEIGHT / 1.8 + randint(-100,100)], 0.9+ randint(-1,2)/2, 3),
         ]
 
 fireworks = reset_fireworks()
@@ -80,7 +79,7 @@ temp_fireworks_start = False
 while True:
     # Background --------------------------------------------- #
     screen.fill((0,0,get_bright(datetime.datetime.now().hour) + firework_light))
-    firework_light -= 0.01
+    if firework_light>0: firework_light -= 0.01
 
     if datetime.datetime.now().year != year or PLAY_ANYWAY:   
         is_alive = 0
