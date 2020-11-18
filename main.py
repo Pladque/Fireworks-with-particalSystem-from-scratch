@@ -16,7 +16,7 @@ WIDTH = HEIGHT = 800
 pygame.display.set_caption('Fireworks with own particle system!')
 screen = pygame.display.set_mode((WIDTH, HEIGHT),0,32)
 
-PLAY_ANYWAY = True  #set to true if you want play it now
+PLAY_ANYTIME= True  #set to true if you want play it now
 PARTICLES_DENSE = 150
 POSSIBLE_POS = [
     [WIDTH / 2 + randint(-100,100) ,HEIGHT / 2 + randint(-100,100)],
@@ -81,7 +81,7 @@ while True:
     screen.fill((0,0,get_bright(datetime.datetime.now().hour) + firework_light))
     if firework_light>0: firework_light -= 0.01
 
-    if datetime.datetime.now().year != year or PLAY_ANYWAY:   
+    if datetime.datetime.now().year != year or PLAY_ANYTIME:   
         is_alive = 0
         is_alive_2 = 0
         for firework in fireworks:
