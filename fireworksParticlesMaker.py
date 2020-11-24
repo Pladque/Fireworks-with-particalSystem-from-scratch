@@ -25,7 +25,7 @@ TEMPparticles13 = [] ;TEMPparticles14 = [] ;TEMPparticles15 = []; TEMPparticles1
 TEMPparticles17 = [] ;TEMPparticles18 = [] ;TEMPparticles19 = []; TEMPparticles20 = []
 
 # particle: speed, ttl, size, color, velocity = (-20,20)
-DIVIDER_FOR_ALL_TTL = 2
+DIVIDER_FOR_ALL_TTL = 3
 def prepareParticles(PARTICLES_DENSE):
     ### Preparing Fireworks
     for _ in range(PARTICLES_DENSE):    #[speed_x, spped_y], ttl, size, color

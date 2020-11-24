@@ -78,8 +78,12 @@ temp_fireworks_start = False
 # Loop ------------------------------------------------------- #
 while True:
     # Background --------------------------------------------- #
-    screen.fill((0,0,get_bright(datetime.datetime.now().hour) + firework_light))
+
     if firework_light>0: firework_light -= 0.01
+    elif firework_light < 0: firework_light =0
+    
+    screen.fill((0,0,get_bright(datetime.datetime.now().hour) + int(firework_light)))
+
 
     if datetime.datetime.now().year != year or PLAY_ANYTIME:   
         is_alive = 0
